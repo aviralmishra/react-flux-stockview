@@ -1,0 +1,14 @@
+{
+  "name": "stock-view",
+  "version": "1.0.0",
+  "author": "Aviral Mishra",
+  "description": "StockView",
+  "scripts": {
+    "build": "babel app -d target --presets react"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.14.0",
+    "babel-preset-react": "^6.11.1"
+  }
+}

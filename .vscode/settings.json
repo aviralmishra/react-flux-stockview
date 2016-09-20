@@ -1,0 +1,9 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.DS_Store": true,
+        "**/*.js": false,
+        "**/*.map": true
+    },
+    "files.autoSave": "onFocusChange"
+}
