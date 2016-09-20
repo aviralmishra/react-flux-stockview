@@ -17,20 +17,6 @@ footer {
     text-align: left;
 }
 
-#wrapper {
-    width: 100%;
-}
-
-#page-wrapper {
-    padding: 0 15px;
-    min-height: 568px;
-    background-color: white;
-}
-
-li {
-    font-size: large;
-}
-
-div.panel-heading {
-   font-size: x-large;
+thead {
+    color: #337AB7;
 }

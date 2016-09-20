@@ -14,6 +14,32 @@ var StockView = React.createClass({
           "volume": "5270360",
           "open": "592.43",
           "close": "592.95"
+        },
+        {
+          "symbol": "MSFT",
+          "ask": "40.15",
+          "bid": "40.14",
+          "last_trade_date": "5/14/2014",
+          "low": "40.05",
+          "high": "40.45",
+          "low_52_weeks": "30.84",
+          "high_52_weeks": "41.66",
+          "volume": "14780003",
+          "open": "40.30",
+          "close": "40.155"
+        },
+        {
+          "symbol": "GOOG",
+          "ask": "526.08",
+          "bid": "525.82",
+          "last_trade_date": "5/14/2014",
+          "low": "525.29",
+          "high": "533.00",
+          "low_52_weeks": "502.80",
+          "high_52_weeks": "604.83",
+          "volume": "961141",
+          "open": "531.95",
+          "close": "525.90"
         }
       ]
     }

@@ -6,15 +6,21 @@ var StocksList = React.createClass({
       listFilter: ''
     };
   },
-
   render: function () {
+    var allStocks = this.props.stocks;
+    var stockRows = [];
+
+    for (var key in allStocks) {
+      stockRows.push(React.createElement(StockRow, { key: key, id: key, stock: allStocks[key] }));
+    }
+
     return React.createElement(
       'div',
       { className: 'panel panel-primary' },
       React.createElement(
         'div',
         { className: 'panel-heading' },
-        'Market Data...'
+        'Featured Stocks'
       ),
       React.createElement(
         'div',
@@ -31,21 +37,6 @@ var StocksList = React.createClass({
             'div',
             { className: 'col-md-4' },
             React.createElement('input', { type: 'text', value: '{this.state.listFilter}' })
-          )
-        ),
-        React.createElement(
-          'div',
-          { className: 'row' },
-          React.createElement(
-            'div',
-            { className: 'col-md-6' },
-            React.createElement(
-              'h3',
-              null,
-              'Filtered by: ',
-              this.state.listFilter,
-              ' '
-            )
           )
         ),
         React.createElement(
@@ -68,6 +59,11 @@ var StocksList = React.createClass({
                 React.createElement(
                   'th',
                   null,
+                  'Stock'
+                ),
+                React.createElement(
+                  'th',
+                  null,
                   'Ask'
                 ),
                 React.createElement(
@@ -78,58 +74,14 @@ var StocksList = React.createClass({
                 React.createElement(
                   'th',
                   null,
-                  'Last Traded'
-                ),
-                React.createElement(
-                  'th',
-                  null,
-                  'Low'
-                ),
-                React.createElement(
-                  'th',
-                  null,
-                  'High'
+                  'Last Traded Date'
                 )
               )
             ),
             React.createElement(
               'tbody',
               null,
-              React.createElement(
-                'tr',
-                { className: 'info' },
-                React.createElement(
-                  'td',
-                  null,
-                  this.props.stocks[0].symbol
-                ),
-                React.createElement(
-                  'td',
-                  null,
-                  this.props.stocks[0].ask
-                ),
-                React.createElement(
-                  'td',
-                  null,
-                  this.props.stocks[0].bid
-                ),
-                React.createElement(
-                  'td',
-                  null,
-                  this.props.stocks[0].last_trade_date
-                ),
-                React.createElement(
-                  'td',
-                  null,
-                  this.props.stocks[0].low
-                ),
-                React.createElement(
-                  'td',
-                  null,
-                  this.props.stocks[0].high
-                ),
-                React.createElement('td', null)
-              )
+              stockRows
             )
           )
         )
