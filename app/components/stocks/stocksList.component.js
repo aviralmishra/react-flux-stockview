@@ -1,23 +1,24 @@
+var React = require('react');
+
+var StockViewActions = require('../../actions/StockViewActions');
+var StockRow = require('./stockRow.component');
+
 var StocksList = React.createClass({
   getInitialState: function () {
     return {
       listFilter: ''
     }
   },
-  handleChange: function (event) {
-    this.setState({ listFilter: event.target.value });
+  _onStocksFilter: function (event) {
+    StockViewActions.filterStocks(event.target.value);
   },
   render: function () {
     var listFilter = this.state.listFilter;
-
     var allStocks = this.props.stocks;
-    var filteredStocks = allStocks.filter(function (elem) {
-      return elem['symbol'].toUpperCase().startsWith(listFilter.toUpperCase());
-    });
-
     var stockRows = [];
-    for (var key in filteredStocks) {
-      stockRows.push(<StockRow key={key} id={key} stock={filteredStocks[key]} />);
+
+    for (var key in allStocks) {
+      stockRows.push(<StockRow key={key} id={key} stock={allStocks[key]}/>);
     }
 
     return (
@@ -28,8 +29,8 @@ var StocksList = React.createClass({
         <div className="panel-body">
           <div className="row">
             <div className="col-md-3">Filter by:
-              <div class="form-group">
-                <input class="form-control" value={listFilter} onChange={this.handleChange} />
+              <div className="form-group">
+                <input className="form-control" value={listFilter} onChange={this._onStocksFilter} />
               </div>
             </div>
           </div>
@@ -42,6 +43,7 @@ var StocksList = React.createClass({
                   <th>Ask</th>
                   <th>Bid</th>
                   <th>Last Traded Date</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -54,3 +56,5 @@ var StocksList = React.createClass({
     );
   }
 });
+
+module.exports = StocksList;

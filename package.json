@@ -4,11 +4,22 @@
   "author": "Aviral Mishra",
   "description": "StockView",
   "scripts": {
-    "build": "babel app -d target --presets react"
+    "build": "babel app -d target --presets react",
+    "start": "watchify app/app.js -o target/app.js -v"
   },
   "license": "ISC",
   "devDependencies": {
-    "babel-cli": "^6.14.0",
-    "babel-preset-react": "^6.11.1"
+    "babel-preset-react": "^6.3.13",
+    "babelify": "^7.2.0",
+    "browserify": "^13.0.0",
+    "watchify": "^3.7.0"
+  },
+  "dependencies": {
+    "flux": "^2.1.1",
+    "react": "^0.14.6",
+    "react-dom": "^0.14.6"
+  },
+  "browserify": {
+    "transform": [["babelify", { "presets": ["react"] }]]
   }
 }

@@ -6,20 +6,19 @@ var StocksList = React.createClass({
       listFilter: ''
     };
   },
-  handleChange: function (event) {
+  onListFilterChange: function (event) {
     this.setState({ listFilter: event.target.value });
+  },
+  onDelete: function (event) {
+    console.log(event.target.value);
   },
   render: function () {
     var listFilter = this.state.listFilter;
-
     var allStocks = this.props.stocks;
-    var filteredStocks = allStocks.filter(function (elem) {
-      return elem['symbol'].toUpperCase().startsWith(listFilter.toUpperCase());
-    });
-
     var stockRows = [];
-    for (var key in filteredStocks) {
-      stockRows.push(React.createElement(StockRow, { key: key, id: key, stock: filteredStocks[key] }));
+
+    for (var key in allStocks) {
+      stockRows.push(React.createElement(StockRow, { key: key, id: key, stock: allStocks[key], onDelete: this.onDelete }));
     }
 
     return React.createElement(
@@ -43,7 +42,7 @@ var StocksList = React.createClass({
             React.createElement(
               'div',
               { 'class': 'form-group' },
-              React.createElement('input', { 'class': 'form-control', value: listFilter, onChange: this.handleChange })
+              React.createElement('input', { 'class': 'form-control', value: listFilter, onChange: this.onListFilterChange })
             )
           )
         ),
@@ -83,6 +82,11 @@ var StocksList = React.createClass({
                   'th',
                   null,
                   'Last Traded Date'
+                ),
+                React.createElement(
+                  'th',
+                  null,
+                  'Actions'
                 )
               )
             ),
