@@ -6,12 +6,20 @@ var StocksList = React.createClass({
       listFilter: ''
     };
   },
+  handleChange: function (event) {
+    this.setState({ listFilter: event.target.value });
+  },
   render: function () {
-    var allStocks = this.props.stocks;
-    var stockRows = [];
+    var listFilter = this.state.listFilter;
 
-    for (var key in allStocks) {
-      stockRows.push(React.createElement(StockRow, { key: key, id: key, stock: allStocks[key] }));
+    var allStocks = this.props.stocks;
+    var filteredStocks = allStocks.filter(function (elem) {
+      return elem['symbol'].toUpperCase().startsWith(listFilter.toUpperCase());
+    });
+
+    var stockRows = [];
+    for (var key in filteredStocks) {
+      stockRows.push(React.createElement(StockRow, { key: key, id: key, stock: filteredStocks[key] }));
     }
 
     return React.createElement(
@@ -30,13 +38,13 @@ var StocksList = React.createClass({
           { className: 'row' },
           React.createElement(
             'div',
-            { className: 'col-md-2' },
-            'Filter by: '
-          ),
-          React.createElement(
-            'div',
-            { className: 'col-md-4' },
-            React.createElement('input', { type: 'text', value: '{this.state.listFilter}' })
+            { className: 'col-md-3' },
+            'Filter by:',
+            React.createElement(
+              'div',
+              { 'class': 'form-group' },
+              React.createElement('input', { 'class': 'form-control', value: listFilter, onChange: this.handleChange })
+            )
           )
         ),
         React.createElement(

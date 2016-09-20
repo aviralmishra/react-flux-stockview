@@ -1,6 +1,7 @@
 var StockRow = React.createClass({
   displayName: "StockRow",
 
+
   getInitialState: function () {
     return {};
   },

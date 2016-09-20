@@ -1,4 +1,5 @@
 var StockRow = React.createClass({
+
   getInitialState: function () {
     return {}
   },

@@ -4,12 +4,20 @@ var StocksList = React.createClass({
       listFilter: ''
     }
   },
+  handleChange: function (event) {
+    this.setState({ listFilter: event.target.value });
+  },
   render: function () {
-    var allStocks = this.props.stocks;
-    var stockRows = [];
+    var listFilter = this.state.listFilter;
 
-    for(var key in allStocks) {
-      stockRows.push(<StockRow key={key} id={key} stock={allStocks[key]} />);
+    var allStocks = this.props.stocks;
+    var filteredStocks = allStocks.filter(function (elem) {
+      return elem['symbol'].toUpperCase().startsWith(listFilter.toUpperCase());
+    });
+
+    var stockRows = [];
+    for (var key in filteredStocks) {
+      stockRows.push(<StockRow key={key} id={key} stock={filteredStocks[key]} />);
     }
 
     return (
@@ -19,9 +27,10 @@ var StocksList = React.createClass({
         </div>
         <div className="panel-body">
           <div className="row">
-            <div className="col-md-2">Filter by: </div>
-            <div className="col-md-4">
-              <input type="text" value="{this.state.listFilter}" />
+            <div className="col-md-3">Filter by:
+              <div class="form-group">
+                <input class="form-control" value={listFilter} onChange={this.handleChange} />
+              </div>
             </div>
           </div>
           <div className="table-responsive">
