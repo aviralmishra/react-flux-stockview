@@ -2,49 +2,9 @@ var EventEmitter = require('events').EventEmitter;
 var StockViewDispatcher = require('../dispatcher/stockViewDispatcher');
 var StockViewConstants = require('../constants/stockViewConstants');
 
-var stocks = [
-  {
-    "symbol": "AAPL",
-    "ask": "593.00",
-    "bid": "592.88",
-    "last_trade_date": "5/14/2014",
-    "low": "591.74",
-    "high": "597.40",
-    "low_52_weeks": "388.87",
-    "high_52_weeks": "604.41",
-    "volume": "5270360",
-    "open": "592.43",
-    "close": "592.95"
-  },
-  {
-    "symbol": "MSFT",
-    "ask": "40.15",
-    "bid": "40.14",
-    "last_trade_date": "5/14/2014",
-    "low": "40.05",
-    "high": "40.45",
-    "low_52_weeks": "30.84",
-    "high_52_weeks": "41.66",
-    "volume": "14780003",
-    "open": "40.30",
-    "close": "40.155"
-  },
-  {
-    "symbol": "GOOG",
-    "ask": "526.08",
-    "bid": "525.82",
-    "last_trade_date": "5/14/2014",
-    "low": "525.29",
-    "high": "533.00",
-    "low_52_weeks": "502.80",
-    "high_52_weeks": "604.83",
-    "volume": "961141",
-    "open": "531.95",
-    "close": "525.90"
-  }
-];
-
 var StocksStore = new EventEmitter();
+
+var _stocks = [];
 
 StocksStore.emitChange = function () {
   this.emit('change');
@@ -55,11 +15,18 @@ StocksStore.addChangeListener = function (listener) {
 };
 
 StocksStore.getStocks = function () {
-  return stocks;
+  return _stocks;
+};
+
+StocksStore.loadStocks = function (response) {
+  _stocks = response;
+
+  this.emitChange();
+  return _stocks;
 };
 
 StocksStore.addStock = function (newStock) {
-  stocks[Object.keys(stocks).length + 1] = {
+  _stocks[Object.keys(_stocks).length + 1] = {
     "symbol": newStock.symbol,
     "ask": newStock.ask,
     "bid": newStock.bid,
@@ -77,25 +44,29 @@ StocksStore.addStock = function (newStock) {
 };
 
 StocksStore.removeStock = function (stockSymbol) {
-  var remainingStocks = stocks.filter(function (elem) {
+  var remainingStocks = _stocks.filter(function (elem) {
     return elem['symbol'].toUpperCase().indexOf(stockSymbol.toUpperCase());
   });
-  stocks = remainingStocks;
+  _stocks = remainingStocks;
 
   this.emitChange();
 }
 
 StocksStore.filterStocks = function (stockSymbol) {
-  var filteredStocks = stocks.filter(function (elem) {
+  var filteredStocks = _stocks.filter(function (elem) {
     return elem['symbol'].toUpperCase().startsWith(stockSymbol.toUpperCase());
   });
-  stocks = filteredStocks;
+  _stocks = filteredStocks;
 
   this.emitChange();
 }
 
 StockViewDispatcher.register(function (action) {
   switch (action.actionType) {
+    case StockViewConstants.STOCK_VIEW_LOAD_STOCKS: {
+      StocksStore.loadStocks(action.response);
+      break;
+    }
     case StockViewConstants.STOCK_LIST_STOCK_ADDED: {
       StocksStore.addStock(action.stock);
       break;

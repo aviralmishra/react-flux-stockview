@@ -4,7 +4,6 @@
   "author": "Aviral Mishra",
   "description": "StockView",
   "scripts": {
-    "build": "babel app -d target --presets react",
     "start": "watchify app/app.js -o target/app.js -v"
   },
   "license": "ISC",
@@ -17,7 +16,8 @@
   "dependencies": {
     "flux": "^2.1.1",
     "react": "^0.14.6",
-    "react-dom": "^0.14.6"
+    "react-dom": "^0.14.6",
+    "superagent": "2.3.0"
   },
   "browserify": {
     "transform": [["babelify", { "presets": ["react"] }]]

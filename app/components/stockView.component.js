@@ -2,6 +2,7 @@ var React = require('react');
 var StockViewActions = require('../actions/StockViewActions');
 var StocksStore = require('../stores/StocksStore');
 var StocksList = require('./stocks/stocksList.component');
+var StockViewAPI =  require('../api/stockViewAPI');
 
 var StockView = React.createClass({
   getInitialState: function () {
@@ -11,6 +12,7 @@ var StockView = React.createClass({
   },
 
   componentDidMount: function () {
+    StockViewAPI.getStocks(['AAON', 'AAPL', 'GOOG', 'IBM', 'MSFT']);
     StocksStore.addChangeListener(this._onChange);
   },
 

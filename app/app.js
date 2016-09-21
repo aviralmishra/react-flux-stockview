@@ -6,8 +6,3 @@ ReactDOM.render(
     <StockView />,
     document.getElementById('stockView')
 );
-
-ReactDOM.render(
-  React.createElement(StockView, null),
-  document.getElementById('stockView')
-);
