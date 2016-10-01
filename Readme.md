@@ -1,5 +1,5 @@
 # react-flux-stockview
-StockView is a responsive and interactive finance application build using React, HTML and Bootstrap.
+StockView is a responsive and interactive finance application built using React, HTML and Bootstrap.
 
 It allows the user to:
 
@@ -18,6 +18,6 @@ Run the following commands to run the application:
 
 ## Note
 
-1. 'config' directory is not added as it contains sensitive information.
+1. 'config' directory is not added to the repo as it contains sensitive information.
 
 
